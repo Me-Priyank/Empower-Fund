@@ -48,7 +48,7 @@ const DonationForm = () => {
 
   const handlePresetAmount = (amount: number) => {
     setSelectedAmount(amount)
-    setCustomAmount('')
+    setCustomAmount(amount.toString()) // Reflect the amount in the input field
   }
 
   const handleCustomAmount = (value: string) => {
@@ -59,7 +59,7 @@ const DonationForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const amount = selectedAmount || Number(customAmount)
-    
+
     if (!amount || !name || !email) return
 
     const newDonation: Donation = {
@@ -68,7 +68,7 @@ const DonationForm = () => {
       name,
       email,
       message,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     }
 
     const updatedDonations = [...donations, newDonation]
@@ -79,7 +79,7 @@ const DonationForm = () => {
 
   if (submitted) {
     return (
-      <div className="max-w-md mt-6 mx-auto text-center py-12">
+      <div className="max-w-md mt-20 mx-auto text-center py-12">
         <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
           <Heart className="w-8 h-8 text-green-600" />
         </div>
@@ -228,20 +228,14 @@ const DonationForm = () => {
                     <div>
                       <div className="flex items-center gap-2">
                         <p className="font-semibold">{donation.name}</p>
-                        <span className="text-sm text-gray-500">
-                          donated {currencies.find(c => c.code === donation.currency)?.symbol}{donation.amount}
+                        <span className="text-gray-500">
+                          donated {selectedCurrency.symbol}{donation.amount}
                         </span>
                       </div>
-                      {donation.message && (
-                        <p className="text-sm text-gray-700 mt-2 italic">
-                          "{donation.message}"
-                        </p>
-                      )}
-                      <p className="text-xs text-gray-500 mt-1">
-                        {new Date(donation.date).toLocaleDateString()}
-                      </p>
+                      <p className="text-sm text-gray-600">{donation.message}</p>
                     </div>
                   </div>
+                  <p className="text-sm text-gray-400 mt-2">{new Date(donation.date).toLocaleString()}</p>
                 </div>
               ))}
             </div>
