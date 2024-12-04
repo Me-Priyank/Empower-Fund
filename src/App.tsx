@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Causes from './pages/Causes';
 import Donate from './pages/Donate';
+import Volunteer from './pages/Volunteer';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/causes" element={<Causes />} />
+            <Route path="/volunteer" element={<Volunteer />} />
             <Route path="/donate" element={<Donate />} />
           </Routes>
         </div>
